@@ -1,0 +1,11 @@
+<div class="stock" *ngIf="stock">
+    <span class="stock__name">{{stock?.isin}}</span>
+    <span class="stock__price">{{parceNumber(stock?.price)}}</span>
+    <span class="stock__activity" [class.stock__activity-positive]="positivePriceActivity" [class.stock__activity-negative]="!positivePriceActivity">
+        <i class="fas fa-play"></i>
+        {{parceNumber(priceActivity)}} %
+    </span>
+    <span class="stock__action">
+        <i class="fas fa-trash-alt" (click)="unsubscribeStock.emit(stock.isin)"></i>
+    </span>
+</div>

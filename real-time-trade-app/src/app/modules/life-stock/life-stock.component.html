@@ -1,0 +1,13 @@
+<div class="isin-list" *ngIf="(isinList$ | async) as isinList">
+    <button class="isin" *ngFor="let isin of isinList" (click)="subscribeIsin(isin)">{{isin}}<i *ngIf="subscribedIsin(isin)" class="fas fa-check"></i></button>
+    <br>
+    <button class="isin more" (click)="showInputField =!showInputField">{{!showInputField ? 'Add ISIN': 'Hide ISIN Input'}}</button>
+    <div class="isin-input-group" *ngIf="showInputField">
+        <input type="text" (keyup)="validateIsin()" [(ngModel)]="inputIsin" placeholder="Enter your ISIN here" maxlength="12"> 
+        <button [disabled]="!validIsin" (click)='subscribeIsin(inputIsin)'>Add</button>
+    </div>
+</div>
+
+<div class="life-stock">
+    <app-stock *ngFor="let stock of stocks" [stock]="stock" (unsubscribeStock)="unsubscribeFromIsin($event)"></app-stock>
+</div>

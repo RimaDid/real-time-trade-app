@@ -1,0 +1,58 @@
+.life-stock {
+    padding: 10px;
+    margin-top: 10px;
+    display: flex;
+    flex-flow: column nowrap;
+}
+.isin-list {
+    padding: 8px;
+    .isin {
+        padding: 8px;
+        margin: 5px;
+        border-radius: 5px;
+        border: none;
+        background-color: white;
+        box-shadow: 0 0 5px 2px lightgrey;
+        cursor: pointer;
+        i {
+            color: rgba(4, 163, 83, 0.527);
+            margin: 5px;
+        }
+        &:hover {
+            background-color: rgba(4, 163, 83, 0.527);
+        }
+        &.more {
+            background-color: rgba(129, 2, 2, 0.472);
+            &:hover {
+                background-color: rgba(129, 2, 2, 0.63); 
+            }
+        }
+    }
+    .isin-input-group {
+        padding: 5px;
+        margin: 5px;
+        input {
+            padding: 5px;
+            border-radius: 3px;
+            border-width: 1px;
+            border-right: none;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        button {
+            padding: 5px;
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+            border: 1px solid;
+            min-width: 55px;
+            cursor: pointer;
+            &:hover {
+                background-color: rgba(4, 163, 83, 0.527);
+            }
+            &:disabled {
+                cursor: not-allowed;
+                background-color: rgba(129, 2, 2, 0.137);
+            }
+        }
+    }
+}

@@ -1,0 +1,9 @@
+<h1 class="title">{{title}}</h1>
+
+<div class="main">
+    <router-outlet></router-outlet>
+</div>
+
+<div class="toastr" *ngIf="(toastr | async)">
+    <span>We are trying to reconnect</span>
+</div>

@@ -1,0 +1,43 @@
+.stock {
+    display: flex;
+    padding: 1% 2%;
+    margin: 2%;
+    font-size: 12px;
+    letter-spacing: 1px;
+    border-radius: 5px;
+    box-shadow: 0 0 8px 2px lightgrey;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    & > * {
+        padding: 1%;
+    }
+    &__price {
+        font-weight: 600;
+    }
+    &__activity {
+        i {
+            margin-right: 5px;
+            font-size: 10px;
+        }
+        &-positive {
+            color: green;
+            i {
+                transform: rotate(270deg);
+            }
+        }
+        &-negative {
+            color: red;
+            i {
+                transform: rotate(90deg);
+            }
+        }
+    }
+    &__action {
+        cursor: pointer;
+        & > *:hover {
+            transform: scale(1.3);
+        }
+    }
+}
