@@ -1,3 +1,4 @@
+import { Stock } from './../models/stock';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { TestBed } from '@angular/core/testing';
@@ -40,7 +41,6 @@ describe('IsinDataService', () => {
       expect(isinService).toBeTruthy();
     });
 
-    //Test case 1
     it('should return a list of ISINs by calling once', () => {
       isinService.getISINList().subscribe(
         (res) => {
@@ -55,7 +55,6 @@ describe('IsinDataService', () => {
       req.flush(dummyIsins); //Return isins
     });
     
-    //Test case 2
     it('should be OK returning no ISINs', () => {
       isinService.getISINList().subscribe(
         resp => expect(resp.length).toEqual(0, 'should have empty ISINs array'),
@@ -66,7 +65,6 @@ describe('IsinDataService', () => {
       req.flush([]); //Return empty data
     });
 
-    //Test case 3
     it('should return a list of ISINs when called multiple times', () => {
       isinService.getISINList().subscribe();
       isinService.getISINList().subscribe(
@@ -80,5 +78,34 @@ describe('IsinDataService', () => {
       requests[0].flush([]); //Return Empty body for first call
       requests[1].flush(dummyIsins); //Return expectedresp in second call
     });
+  });
+
+  describe('#Subscribed Isins data manipulaion', () => {
+    it('should add a stock to the subscribed isin observable if not exist', () => {
+      const dummyStock: Stock  = {isin: '', bid: 0 , ask: 0, price:45};
+      isinService.updateSubscribedIsins(dummyStock);
+      isinService.subscribedIsins$.subscribe((res) => expect(res.length).toEqual(1))
+    });
+
+    it('should update an existing stock values', () => {
+      const dummyStock1: Stock  = {isin: '', bid: 0 , ask: 0, price:45};
+      const dummyStock2: Stock  = {isin: '', bid: 0 , ask: 0, price:450};
+      isinService.updateSubscribedIsins(dummyStock1);
+      isinService.updateSubscribedIsins(dummyStock2);
+      isinService.subscribedIsins$.subscribe((res) => {
+        expect(res.length).toEqual(1);
+        expect(res[0].price).toEqual(450);
+      });
+    });
+
+    it('should delete an existing stock values from subscribed isins mlist on unsubscption', () => {
+      const dummyStock1: Stock  = {isin: '', bid: 0 , ask: 0, price:45};
+      isinService.updateSubscribedIsins(dummyStock1);
+      isinService.unsusbscribeIsins(dummyStock1.isin);
+      isinService.subscribedIsins$.subscribe((res) => {
+        expect(res.length).toEqual(0);
+      });
+    });
+
   });
 });
